@@ -7,11 +7,11 @@
  });
 $('#sendFormButton').click(function(e){
 		e.preventDefault();
-		
+
 		phoneRegex = /[0-9\)\(-\+]{7,}/;
 		send = true;
 		$(this).attr('disabled','disabled');
-		$('#contactForm input').each(function(){			  
+		$('#contactForm input').each(function(){
 			  if(typeof($(this).attr('required')) != 'undefined' && $(this).val() == ''){
 				  send = false;
 				  $(this).siblings('label').css('color','#c00');
@@ -20,27 +20,27 @@ $('#sendFormButton').click(function(e){
 					  case 'tel':
 					  	if(!phoneRegex.test($(this).val()) ){
 							send = false;
-				  			$(this).siblings('label').css('color','#c00');	
+				  			$(this).siblings('label').css('color','#c00');
 						}
 					  break;
 					  case 'email':
 					  	val = $(this).val();
 						if(val.indexOf('@') == -1 || val.indexOf('.') == -1){
 							send = false;
-				  			$(this).siblings('label').css('color','#c00');	
+				  			$(this).siblings('label').css('color','#c00');
 						}
-					  break;	
+					  break;
 				  }
 			  }
 		  });
 		  if(send){
 			  formData = 	$('#contactForm').serialize();
-			  $.post('/ajax/sendmail.php', formData, function(data){
+			  $.post('/sendmail.php', formData, function(data){
 				 // console.log(data);
-				  $('#formsendButtonWrapper').html('Thanks! I\'ll Get back to you as soon as possible.');	
+				  $('#formsendButtonWrapper').html('Thanks! I\'ll Get back to you as soon as possible.');
 			  });
 		  } else{
-				$(this).removeAttr('disabled');  
+				$(this).removeAttr('disabled');
 		  }
 });
 
